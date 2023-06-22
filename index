@@ -1,0 +1,75 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class Employee {
+private:
+    string name;
+    int age;
+    string department;
+
+public:
+    Employee(const string& name, int age, const string& department) : name(name), age(age), department(department) {}
+
+    string getName() const {
+        return name;
+    }
+
+    int getAge() const {
+        return age;
+    }
+
+    string getDepartment() const {
+        return department;
+    }
+};
+
+class EmployeeManagementSystem {
+private:
+    vector<Employee> employees;
+
+public:
+    void addEmployee(const Employee& employee) {
+        employees.push_back(employee);
+    }
+
+    void removeEmployee(const string& name) {
+        for (auto it = employees.begin(); it != employees.end(); ++it) {
+            if (it->getName() == name) {
+                employees.erase(it);
+                cout << "Employee removed successfully!" << endl;
+                return;
+            }
+        }
+        cout << "Employee not found." << endl;
+    }
+
+    void displayEmployees() {
+        cout << "Employee List:" << endl;
+        for (const auto& employee : employees) {
+            cout << "Name: " << employee.getName() << ", Age: " << employee.getAge() << ", Department: " << employee.getDepartment() << endl;
+        }
+    }
+};
+
+int main() {
+    EmployeeManagementSystem empSystem;
+
+    Employee emp1("John Doe", 30, "Sales");
+    Employee emp2("Jane Smith", 35, "Marketing");
+    Employee emp3("Mike Johnson", 28, "Finance");
+
+    empSystem.addEmployee(emp1);
+    empSystem.addEmployee(emp2);
+    empSystem.addEmployee(emp3);
+
+    empSystem.displayEmployees();
+
+    empSystem.removeEmployee("Jane Smith");
+
+    empSystem.displayEmployees();
+
+    return 0;
+}
